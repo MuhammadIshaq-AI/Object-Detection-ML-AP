@@ -1,0 +1,37 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- corner brackets (detection box) -->
+    <path
+        android:strokeColor="#22D3EE"
+        android:strokeWidth="3.5"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M30,40 L30,30 L40,30 M68,30 L78,30 L78,40 M78,68 L78,78 L68,78 M40,78 L30,78 L30,68" />
+    <!-- lens ring -->
+    <path
+        android:strokeWidth="5"
+        android:pathData="M54,54m-15,0a15,15 0,1 1,30 0a15,15 0,1 1,-30 0">
+        <aapt:attr name="android:strokeColor">
+            <gradient
+                android:type="linear"
+                android:startX="39"
+                android:startY="39"
+                android:endX="69"
+                android:endY="69">
+                <item android:offset="0" android:color="#818CF8" />
+                <item android:offset="1" android:color="#22D3EE" />
+            </gradient>
+        </aapt:attr>
+    </path>
+    <!-- pupil -->
+    <path
+        android:fillColor="#E0E7FF"
+        android:pathData="M54,54m-6,0a6,6 0,1 1,12 0a6,6 0,1 1,-12 0" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M58,50m-2,0a2,2 0,1 1,4 0a2,2 0,1 1,-4 0" />
+</vector>
