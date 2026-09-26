@@ -5,7 +5,9 @@ import androidx.compose.foundation.border
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Typography
 import androidx.compose.material3.darkColorScheme
+import androidx.compose.material3.LocalContentColor
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
@@ -65,5 +67,8 @@ private val VisionTypography = Typography(
 
 @Composable
 fun VisionLensTheme(content: @Composable () -> Unit) {
-    MaterialTheme(colorScheme = VisionColors, typography = VisionTypography, content = content)
+    MaterialTheme(colorScheme = VisionColors, typography = VisionTypography) {
+        // No Surface wraps our screens, so set the default text/icon color explicitly.
+        CompositionLocalProvider(LocalContentColor provides Color.White, content = content)
+    }
 }
