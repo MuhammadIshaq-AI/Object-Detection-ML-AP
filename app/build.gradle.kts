@@ -11,6 +11,13 @@ val keystoreProperties = Properties().apply {
     if (file.exists()) file.inputStream().use { load(it) }
 }
 
+val appVersionName = "1.1.0"
+
+base {
+    // APKs come out as e.g. VisionLens-v1.1.0-debug.apk.
+    archivesName = "VisionLens-v$appVersionName"
+}
+
 android {
     namespace = "com.ishaq.visionlens"
     compileSdk = 36
@@ -19,8 +26,8 @@ android {
         applicationId = "com.ishaq.visionlens"
         minSdk = 24
         targetSdk = 36
-        versionCode = 1
-        versionName = "1.0.0"
+        versionCode = 2
+        versionName = appVersionName
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
