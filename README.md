@@ -5,9 +5,12 @@ Real-time, on-device dog detection and breed recognition for Android, built with
 - Finds dogs live from the camera and names their breed (120 breeds from the Stanford Dogs dataset)
 - Two-stage pipeline: EfficientDet-Lite0 (COCO) locates the dogs, then a MobileNetV3 breed classifier labels each crop
 - Runs fully offline, so no images leave the device
-- Color-coded bounding boxes with breed + confidence labels, plus a list of the dogs in view
-- Shows FPS and inference time, and has an adjustable confidence threshold
-- Pause/resume, flash toggle, and front/back camera switch
+- Uses the back camera only
+- Color-coded bounding boxes labelled with just the breed name (no confidence percentages), plus a card for each breed in view
+- Animated scanning viewfinder while it looks for dogs, and a live status/FPS indicator
+- Pause/resume and flash toggle
+
+Current version: **1.1.0** (versionCode 2).
 
 ## Requirements
 - Android 7.0+ (API 24), target API 36
@@ -19,6 +22,9 @@ Real-time, on-device dog detection and breed recognition for Android, built with
 ./gradlew assembleDebug        # debug APK
 ./gradlew bundleRelease        # signed Play Store bundle (.aab)
 ```
+
+Outputs are named after the version, e.g. `app/build/outputs/apk/debug/VisionLens-v1.1.0-debug.apk`.
+To release a new version, change `appVersionName` and bump `versionCode` in `app/build.gradle.kts`.
 
 The release build is signed only if `keystore.properties` exists in the project root:
 
@@ -46,7 +52,8 @@ python training/train_dog_breeds.py --data <that folder> --out app/src/main/asse
 ```
 
 The backbone is frozen, so this runs on a CPU in about 15 minutes. Crops with a breed
-confidence below 30% are labelled plain "Dog".
+confidence below 30% are labelled plain "Dog". Dogs detected with less than 50% confidence
+are not shown (fixed in `DetectorViewModel.MIN_SCORE`).
 
 On-device tests (held-out test photos) run with `./gradlew connectedDebugAndroidTest`.
 
@@ -59,9 +66,9 @@ app/src/main/java/com/ishaq/visionlens/
   detection/ObjectDetector.kt        EfficientDet (COCO) interpreter, filtered to dogs
   detection/DogBreedClassifier.kt    breed classifier on a dog crop
   detection/DogDetector.kt           detector + classifier pipeline used by the app
-  ui/DetectorViewModel.kt            frame analysis, FPS, settings state
-  ui/screens/                        PermissionScreen, CameraScreen
-  ui/components/DetectionOverlay.kt  bounding-box drawing
+  ui/DetectorViewModel.kt            frame analysis, FPS, pause/flash state
+  ui/screens/                        PermissionScreen, CameraScreen (viewfinder, breed cards)
+  ui/components/DetectionOverlay.kt  bounding boxes with breed labels
   ui/theme/Theme.kt                  colors, typography, glass style
 training/train_dog_breeds.py         trains and exports the breed model
 ```

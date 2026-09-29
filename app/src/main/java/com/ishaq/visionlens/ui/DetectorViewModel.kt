@@ -17,9 +17,7 @@ data class DetectorUiState(
     val imageHeight: Int = 0,
     val inferenceTimeMs: Long = 0,
     val fps: Float = 0f,
-    val threshold: Float = 0.5f,
     val paused: Boolean = false,
-    val frontCamera: Boolean = false,
     val torchOn: Boolean = false,
     val error: String? = null,
 )
@@ -48,7 +46,7 @@ class DetectorViewModel(application: Application) : AndroidViewModel(application
             val result = detector.detect(
                 bitmap = image.toBitmap(),
                 rotationDegrees = image.imageInfo.rotationDegrees,
-                minScore = current.threshold,
+                minScore = MIN_SCORE,
             )
 
             val now = System.nanoTime()
@@ -67,8 +65,6 @@ class DetectorViewModel(application: Application) : AndroidViewModel(application
         }
     }
 
-    fun setThreshold(value: Float) = _state.update { it.copy(threshold = value) }
-
     fun togglePause() {
         lastFrameAt = 0L
         _state.update { it.copy(paused = !it.paused) }
@@ -76,18 +72,12 @@ class DetectorViewModel(application: Application) : AndroidViewModel(application
 
     fun toggleTorch() = _state.update { it.copy(torchOn = !it.torchOn) }
 
-    fun switchCamera() {
-        lastFrameAt = 0L
-        _state.update {
-            it.copy(frontCamera = !it.frontCamera, torchOn = false, detections = emptyList(), fps = 0f)
-        }
-    }
-
     override fun onCleared() {
         detector?.close()
     }
 
     private companion object {
         const val TAG = "DetectorViewModel"
+        const val MIN_SCORE = 0.5f
     }
 }
