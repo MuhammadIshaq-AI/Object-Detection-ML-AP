@@ -24,7 +24,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Bolt
 import androidx.compose.material.icons.rounded.CameraAlt
-import androidx.compose.material.icons.rounded.Category
+import androidx.compose.material.icons.rounded.Pets
 import androidx.compose.material.icons.rounded.Lock
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -93,7 +93,7 @@ fun PermissionScreen(
             Text("Vision Lens", style = MaterialTheme.typography.headlineLarge)
             Spacer(Modifier.height(8.dp))
             Text(
-                "Point your camera at the world and see what's in it — instantly.",
+                "Point your camera at a dog and find out its breed — instantly.",
                 style = MaterialTheme.typography.bodyLarge,
                 color = TextMuted,
                 textAlign = TextAlign.Center,
@@ -108,7 +108,7 @@ fun PermissionScreen(
                 verticalArrangement = Arrangement.spacedBy(16.dp),
             ) {
                 Feature(Icons.Rounded.Bolt, "Real-time", "Detection runs live at camera speed")
-                Feature(Icons.Rounded.Category, "80 object types", "People, animals, vehicles, food and more")
+                Feature(Icons.Rounded.Pets, "120 dog breeds", "From Chihuahuas to Great Danes")
                 Feature(Icons.Rounded.Lock, "Private by design", "Everything runs on your device")
             }
         }

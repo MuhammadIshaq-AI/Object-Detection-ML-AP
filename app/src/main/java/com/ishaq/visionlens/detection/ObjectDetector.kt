@@ -22,6 +22,8 @@ import java.io.Closeable
 class ObjectDetector(
     context: Context,
     private val maxResults: Int = 10,
+    /** If set, only these labels are returned (e.g. just "dog"). */
+    private val allowedLabels: Set<String>? = null,
 ) : Closeable {
 
     private val interpreter: Interpreter
@@ -71,6 +73,7 @@ class ObjectDetector(
                 val classIndex = classes[0][i].toInt()
                 val label = labels.getOrNull(classIndex)
                 if (label == null || label == UNKNOWN_LABEL) return@mapNotNull null
+                if (allowedLabels != null && label !in allowedLabels) return@mapNotNull null
                 val (top, left, bottom, right) = boxes[0][i].map { it.coerceIn(0f, 1f) }
                 Detection(label, classIndex, scores[0][i], RectF(left, top, right, bottom))
             }
