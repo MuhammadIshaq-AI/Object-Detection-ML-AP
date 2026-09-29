@@ -259,13 +259,13 @@ private fun ResultsPanel(
     ) {
         Row(Modifier.padding(horizontal = 20.dp), verticalAlignment = Alignment.CenterVertically) {
             Column(Modifier.weight(1f)) {
-                Text("Detected objects", style = MaterialTheme.typography.titleLarge)
+                Text("Dogs spotted", style = MaterialTheme.typography.titleLarge)
                 Text(
                     text = when {
                         state.error != null -> state.error
                         state.paused -> "Detection paused"
-                        groups.isEmpty() -> "Scanning… point at something"
-                        else -> "${state.detections.size} object${if (state.detections.size == 1) "" else "s"} in view"
+                        groups.isEmpty() -> "Scanning… point at a dog"
+                        else -> "${state.detections.size} dog${if (state.detections.size == 1) "" else "s"} in view"
                     },
                     style = MaterialTheme.typography.bodyMedium,
                     color = if (state.error != null) MaterialTheme.colorScheme.error else TextMuted,

@@ -5,7 +5,7 @@ import android.util.Log
 import androidx.camera.core.ImageProxy
 import androidx.lifecycle.AndroidViewModel
 import com.ishaq.visionlens.detection.Detection
-import com.ishaq.visionlens.detection.ObjectDetector
+import com.ishaq.visionlens.detection.DogDetector
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -29,8 +29,8 @@ class DetectorViewModel(application: Application) : AndroidViewModel(application
     private val _state = MutableStateFlow(DetectorUiState())
     val state: StateFlow<DetectorUiState> = _state.asStateFlow()
 
-    private val detector: ObjectDetector? = try {
-        ObjectDetector(application)
+    private val detector: DogDetector? = try {
+        DogDetector(application)
     } catch (e: Exception) {
         Log.e(TAG, "Failed to load model", e)
         _state.update { it.copy(error = "Couldn't load the detection model.") }
